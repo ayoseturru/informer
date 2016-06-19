@@ -1,0 +1,32 @@
+<ion-view view-title="Comments" cache-view="false">
+  <ion-content>
+    <div class="row">
+      <label class="col-80 item item-input">
+        <input placeholder="New Comment" ng-model="newComment.comment" type="text">
+      </label>
+      <button class="col-20 button-positive button" ng-click="addComment()">Add</button>
+    </div>
+
+    <h3 class="center_title positive">{{!comments.length? "This publication doesn't have comments, be the first":
+      comments.length + " comment" + (comments.length > 1? "s": "")}}</h3>
+    <ion-list class="list">
+
+      <ion-item class="item item-avatar" href="#" ng-repeat="comment in comments">
+        <img ng-if="comment.user != User.user.uid" ui-sref="app.userProfile({user: comment.user})"
+             ng-src="{{usersProfile[comment.user].profileImage || 'img/default_profile.png'}}"
+             alt="">
+        <img ng-if="comment.user == User.user.uid" ui-sref="app.profile"
+             ng-src="{{usersProfile[comment.user].profileImage || 'img/default_profile.png'}}"
+             alt="">
+        <h2>{{usersProfile[comment.user].name}} {{usersProfile[comment.user].firstSurname}}
+          {{usersProfile[comment.user].secondSurname}}</h2>
+        <p>{{comment.comment}}</p>
+        <p>{{::formatDate(comment.date)}}</p>
+        <ion-option-button ng-show="comment.user == User.user.uid" class="button-assertive"
+                           ng-click="removeComment($index)">
+          Remove
+      </ion-item>
+
+    </ion-list>
+  </ion-content>
+</ion-view>

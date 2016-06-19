@@ -1,0 +1,69 @@
+<ion-view>
+  <ion-nav-title>
+    {{recipientUser.name}} {{recipientUser.firstSurname}} Chat
+  </ion-nav-title>
+  <ion-content has-bouncing="true" class="has-header has-footer"
+               delegate-handle="userMessageScroll">
+    <div class="my_spinner" ng-if="!messages && !messages.length">
+      <br><br><br>
+      <ion-spinner icon="android"></ion-spinner>
+      <h4 class="positive">
+        We're trying to load the conversation...
+      </h4>
+    </div>
+
+    <div ng-repeat="message in messages" class="message-wrapper"
+         on-hold="onMessageHold($event, $index, message)">
+
+      <div ng-if="message.messageIsMine">
+
+        <img class="profile-pic left"
+             ng-src="{{User.user.profileImage || 'img/default_profile.png'}}"/>
+
+        <div class="chat-bubble left">
+
+          <div class="message" ng-bind-html="message.message | linky:'_blank' | toInAppBrowser">
+          </div>
+
+          <div class="message-detail">
+            <span class="bold">Me</span>,
+            <span>{{::formatDate(message.date)}}</span>
+          </div>
+
+        </div>
+      </div>
+
+      <div ng-if="!message.messageIsMine">
+
+        <img class="profile-pic right"
+             ui-sref="app.userProfile({user: recipientUserId})"
+             ng-src="{{recipientUser.profileImage || 'img/default_profile.png'}}"/>
+
+        <div class="chat-bubble right">
+
+          <div class="message" ng-bind-html="message.message | linky:'_blank' | toInAppBrowser">
+          </div>
+
+          <div class="message-detail">
+            <span class="bold">{{recipientUser.name}} {{recipientUser.firstSurname}}</span>,
+            <span>{{::formatDate(message.date)}}</span>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="cf"></div>
+
+    </div>
+  </ion-content>
+  <ion-footer-bar keyboard-attach class="bar-stable item-input-inset">
+    <label class="item-input-wrapper">
+      <input ng-disable="!messages" class="my_input" type="text" placeholder="Type your message"
+             on-return="sendMessage(); closeKeyboard()"
+             ng-model="data.message" on-focus="inputUp()" on-blur="inputDown()"/>
+    </label>
+    <button class="button button-clear icon ion-android-send button-positive" ng-click="sendMessage()">
+    </button>
+  </ion-footer-bar>
+</ion-view>

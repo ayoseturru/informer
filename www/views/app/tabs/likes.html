@@ -1,0 +1,14 @@
+<ion-view cache-view="false" view-title="Likes">
+  <ion-content>
+    <h3 class="center_title positive">{{likes.length? likes.length + " Likes": "This publication doesn't have any like, be the first!"}}</h3>
+    <ion-list class="list">
+      <ion-item class="item-avatar" ng-repeat="like in likes">
+          <img ng-if="like.$id != User.user.uid" ui-sref="app.userProfile({user: like.$id})"
+               ng-src="{{usersProfile[like.$id].profileImage || 'img/default_profile.png'}}" alt="">
+        <img ng-if="like.$id == User.user.uid" ui-sref="app.profile"
+             ng-src="{{usersProfile[like.$id].profileImage || 'img/default_profile.png'}}" alt="">
+          <h2>{{usersProfile[like.$id].name}} {{usersProfile[like.$id].firstSurname}} {{usersProfile[like.$id].secondSurname }}</h2>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

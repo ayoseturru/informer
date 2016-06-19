@@ -1,0 +1,32 @@
+<ion-view title="Notifications" hide-back-button="true">
+  <ion-content>
+    <div class="my_spinner" ng-if="!loaded">
+      <br><br>
+      <ion-spinner class="positive spinner-positive spinner-android"></ion-spinner>
+      <h3 class="positive center_title">Loading</h3>
+    </div>
+    <h3 class="positive center_title" ng-if="loaded && !notifications.length">You don't have any notification yet</h3>
+    <ion-list show-delete="shouldShowDelete">
+      <ion-item ng-repeat="notification in notifications" ng-click="goToNotification(notification)"
+                class="item item-avatar">
+        <img ui-sref="app.userProfile({user: notification.userId})"
+             ng-src="{{userProfiles[notification.userId].profileImage || 'img/default_profile.png'}}">
+        <h2>
+          {{notification.title}}
+        </h2>
+        {{notification.message}}<br>
+        <span><i class="ion-calendar positive"></i> {{::formatDate(notification.date)}}</span>
+        <ion-delete-button class="ion-minus-circled"
+                           ng-click="items.splice($index, 1)">
+        </ion-delete-button>
+        <ion-option-button class="button-assertive"
+                           ng-click="removeNotification($index)">
+          Remove
+        </ion-option-button>
+      </ion-item>
+    </ion-list>
+    <ion-infinite-scroll ng-if="!noMoreItemsAvailable" on-infinite="loadMore()" distance="5%">
+    </ion-infinite-scroll>
+  </ion-content>
+</ion-view>
+

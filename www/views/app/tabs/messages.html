@@ -1,0 +1,34 @@
+<ion-view title="Messages">
+  <ion-content>
+    <div class="my_spinner" ng-if="!conversationsLoaded">
+      <br><br><br>
+      <ion-spinner icon="android"></ion-spinner>
+      <h4 class="positive">
+        We're trying to load your conversations...
+      </h4>
+    </div>
+    <div ng-if="conversationsLoaded && !conversations.length">
+      <br><br>
+      <h3 class="positive center_title">
+        You don't have any conversation yet...
+      </h3>
+    </div>
+    <ion-list class="list">
+      <ion-item ng-style="!conversationsUsers[conversation.$id].name && {'pointer-events': 'none'}"
+                class="item item-avatar"
+                href="#"
+                ng-repeat="conversation in conversations"
+                ui-sref="app.conversation({user:conversationsUsers[conversation.$id], userId: conversation.$id})">
+        <img ng-src="{{conversationsUsers[conversation.$id].profileImage || 'img/default_profile.png'}}" alt="">
+        <h2>{{conversationsUsers[conversation.$id].name + " " + (conversationsUsers[conversation.$id].firstSurname || '' ) || 'Loading...'}}</h2>
+        <p>{{conversationsUsers[conversation.$id].extra.quote}}</p>
+        <ion-option-button class="button-assertive"
+                           ng-click="removeConversation($index)">
+          Remove
+          <div ng-if="!conversationsUsers[conversation.$id].name" ng-show="false">{{::conversationAdded(conversation.$id)}}
+          </div>
+      </ion-item>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

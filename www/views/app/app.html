@@ -1,0 +1,96 @@
+<ion-side-menus enable-menu-with-back-views="false">
+
+  <ion-side-menu-content drag-content="false" on-swipe-right="goBack()" on-swipe-left="goForward()">
+    <ion-nav-bar class="bar-positive">
+      <ion-nav-back-button class="button-icon ion-arrow-left-c">
+      </ion-nav-back-button>
+
+      <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+        </button>
+      </ion-nav-buttons>
+
+      <ion-nav-buttons side="right">
+        <button ng-show="notificationAdded"
+                class="button button-icon button-clear ion-android-notifications-none button-assertive"
+                ui-sref="app.notifications" ng-click="updateNotificationsAdded()"></button>
+        <button class="button button-icon button-clear ion-gear-b" menu-toggle="right"></button>
+      </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-tabs class="tabs-icon-only tabs-positive">
+
+      <ion-tab on-double-tap="scrollTop()" icon="ion-home" ui-sref="app.home">
+        <ion-nav-view name="appHome"></ion-nav-view>
+      </ion-tab>
+
+      <ion-tab on-double-tap="backToRoot('app.messages')" icon="ion-chatboxes" ui-sref="app.messages">
+        <ion-nav-view name="appMessages"></ion-nav-view>
+      </ion-tab>
+
+      <ion-tab icon="ion-plus-round" ui-sref="app.new">
+        <ion-nav-view name="appNew"></ion-nav-view>
+      </ion-tab>
+
+      <ion-tab on-double-tap="backToRoot('app.search')" icon="ion-search" ui-sref="app.search">
+        <ion-nav-view name="appSearch"></ion-nav-view>
+      </ion-tab>
+
+      <ion-tab on-double-tap="backToRoot('app.notifications')" icon="ion-android-notifications"
+               ui-sref="app.notifications">
+        <ion-nav-view name="appNotifications"></ion-nav-view>
+      </ion-tab>
+
+      <ion-tab icon="ion-person" on-double-tap="scrollTop()" ui-sref="app.profile">
+        <ion-nav-view name="appProfile"></ion-nav-view>
+      </ion-tab>
+
+    </ion-tabs>
+  </ion-side-menu-content>
+
+  <ion-side-menu side="left">
+    <ion-header-bar menu-close class="bar bar-header bar-dark">
+      <a class="button button-icon icon ion-close-circled"></a>
+      <h1 class="title">Actions</h1>
+    </ion-header-bar>
+    <ion-content has-header="true">
+      <ion-list>
+        <ion-item menu-close class="ion-university item-positive dark">
+          Schooling
+        </ion-item>
+        <ion-item ng-class="{'item-stable': universityWall}" menu-close
+                  ui-sref="app.home" ng-click="changeWall('app.home')">
+          &nbsp;&nbsp;&nbsp;<i class="ion-eye" ng-if="universityWall"></i>&nbsp;{{" " + userSchooling.university}}
+        </ion-item>
+        <ion-item ng-class="{'item-stable': !universityWall}" menu-close ui-sref="app.careerHome"
+                  ng-click="changeWall('app.careerHome')">
+          &nbsp;&nbsp;&nbsp;<i class="ion-eye" ng-if="!universityWall"></i>&nbsp;{{" "
+          + userSchooling.career}}
+        </ion-item>
+        <ion-item class="ion-ios-people"> Communities</ion-item>
+        <ion-item menu-close ng-click="logout()">
+          Logout <i class="ion-log-out"></i>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-side-menu>
+
+  <ion-side-menu side="right">
+    <ion-header-bar class="bar bar-header bar-dark" menu-close>
+      <a class="button button-icon icon ion-close-circled"></a>
+      <br>
+      <h1 class="title">Settings</h1>
+    </ion-header-bar>
+    <ion-content>
+      <ul class="list">
+        <li>
+          <a class="item" menu-close nav-clear ng-click="clearPublicationsCache()">Clear cache</a>
+        </li>
+        <li>
+          <a class="item" menu-close nav-clear>Settings <i class="ion-gear-b"></i></a>
+        </li>
+      </ul>
+    </ion-content>
+  </ion-side-menu>
+
+</ion-side-menus>
+

@@ -1,0 +1,29 @@
+<ion-view title="Search">
+  <ion-content>
+    <div class="bar bar-header item-input-inset">
+      <label class="item-input-wrapper">
+        <i class="icon ion-ios-search placeholder-icon"></i>
+        <input type="search" ng-model="search.filter" ng-disabled="!users" ng-change="updateResults()"
+               placeholder="Search a user or #hashtag">
+      </label>
+      <button class="button button-clear" ng-click="search.filter = ''">
+        Clear
+      </button>
+    </div>
+    <div class="list">
+      <ion-item ng-click="applyFilter(tag.substring(1))" ng-show="search.filter.startsWith('#')"
+                ng-repeat="tag in tags | filter: search.filter">
+        {{tag}}
+      </ion-item>
+
+      <a class="item item-avatar" href="#" ng-click="search.filter = ''" ui-sref="app.userProfile({user: key})"
+         ng-show="search.filter && !search.filter.startsWith('#')"
+         ng-repeat="(key, val) in results track by $index">
+        <img ng-src="{{ profiles[key].profileImage || 'img/default_profile.png'}}">
+        <h2> {{val.name.capitalize()}} </h2>
+        <p> {{profiles[key].career}} </p>
+      </a>
+
+    </div>
+  </ion-content>
+</ion-view>

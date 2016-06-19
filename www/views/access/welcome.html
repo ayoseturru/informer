@@ -1,0 +1,28 @@
+<ion-view id="welcome" title="Welcome" cache-view="false">
+  <ion-content class="padding">
+    <h1 id="app_title" class="title" style="text-align: center;">Informer</h1>
+
+    <form id="login_form" name="loginForm" class="list" autocomplete="off">
+      <label class="item item-input">
+        <input type="email" name="email" placeholder="Email"
+               ng-model="User.user.email" required>
+      </label>
+      <label class="item item-input">
+        <input name="password" type="password" placeholder="Password"
+               ng-model="User.user.password" required>
+      </label>
+      <button class="button button-block button-balanced" ng-click="!User.user.email || !User.user.password || login()">
+        Sign in
+      </button>
+
+    </form>
+
+    <button ng-click="facebookLogin()" class="button button-block button-calm">
+      Sign in with Facebook <span class="ion-social-facebook"></span>
+    </button>
+    <a href="#/sign_up" class="button button-block button-energized"
+       ng-click="User.user.email = User.user.password = ''">
+      Sign up
+    </a>
+  </ion-content>
+</ion-view>

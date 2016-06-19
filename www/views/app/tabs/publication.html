@@ -1,0 +1,70 @@
+<ion-view view-title="Publication" cache-view="false">
+  <ion-content>
+    <div class="card" ng-if="publication">
+      <div class="item item-divider">
+        {{publication.title}}
+      </div>
+      <div class="item">
+        <span class="ion-ios-clock positive"></span> {{::formatDate(publication.date)}}<br>
+        <i class="icon ion-eye positive"></i> {{(publication.anonymous? "Anonymous": "Public") + "(" +
+        (publication.career && publication.university? "University, Career": (publication.university? "University":
+        "Career")) + ")"}}
+      </div>
+
+      <div class="item" ng-if="publication.images">
+        <div>
+          <h2>
+            &nbsp;<i class="ion-images positive"></i>
+          </h2>
+          <a class="item item-list-detail" class="images_list">
+            <ion-scroll direction="x" paging="true" ng-if="publication.images">
+              <img
+                ng-repeat="image in publication.images track by $index"
+                ng-src="{{image}}"
+                ng-click="showImages(publication.$id, $index)"
+                class="image-list-thumb"/>
+            </ion-scroll>
+          </a>
+        </div>
+      </div>
+
+      <div class="item item-body">
+        {{publication.content}}
+        <p>
+          <a href="#" class="subdued" ng-click="goToLikes(publication.$id, User.user.uid, 'app.notificationLikes')">Likes</a>
+          <a href="#" class="subdued"
+             ng-click="goToComments(publication.$id, User.user.uid, 'app.notificationComments')">Comments</a>
+        </p>
+      </div>
+
+      <div class=" item tabs tabs-secondary tabs-icon-left">
+        <a class="tab-item" href="#" ng-click="like(publication.$id, User.user.uid, true)"
+           ng-show="!User.user.likes[publication.$id]">
+          <i class="icon ion-thumbsup"></i> Like
+        </a>
+        <a class="tab-item" href="#" ng-show="User.user.likes[publication.$id]"
+           ng-click="like(publication.$id, User.user.uid, false)">
+          <i class="icon ion-thumbsdown"></i> Dislike
+        </a>
+        <a class="tab-item" href="#" ng-click="sendComment(publication.$id, User.user.uid)">
+          <i class="icon ion-chatbox"></i> Comment
+        </a>
+        <a class="tab-item" href="#">
+          <i class="icon ion-share"></i> Share
+        </a>
+      </div>
+
+      <div class="item item-divider">
+  <span ng-repeat="(key, value) in publication.tags">
+  <a ng-if="key != 'false'" class="tags" href="#" ng-click="searchByTag(key)" class="positive">{{"#" + key}}</a>
+</span>
+      </div>
+    </div>
+    <div ng-if="showDeleted" class="padding">
+      <h3 class="center_title title positive">
+        The requested publication has been deleted...
+      </h3>
+      <!--<button class="button button-balanced button-block" ng-click="backToNotifications()">Back</button>-->
+    </div>
+  </ion-content>
+</ion-view>

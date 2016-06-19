@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+  <title>Informer</title>
+  <!--CSS-->
+  <link href="lib/ionic/scss/ionic.css" rel="stylesheet" type="text/css">
+  <link href="css/style.css" rel="stylesheet" type="text/css">
+  <link href="css/ion-gallery.css" rel="stylesheet" type="text/css">
+  <!--Libs-->
+  <script src="lib/ionic/js/ionic.bundle.js"></script>
+  <script src="lib/ionic-platform-web-client/dist/ionic.io.bundle.min.js"></script>
+  <script src="lib/ng-cordova-master/ng-cordova-master/dist/ng-cordova.min.js"></script>
+  <!-- Cordova is bootstrapped by ionic-platform-web-client, uncomment this if you remove ionic-platform-web-client... -->
+  <!-- <script src="cordova.js"></script> -->
+  <script src="lib/firebase.js"></script>
+  <script src="lib/firebase-util/dist/firebase-util.js"></script>
+  <script src="lib/angularfire.min.js"></script>
+  <script src="lib/ion-gallery.js"></script>
+  <!--APP-->
+  <script src="js/app.js"></script>
+  <!--Config-->
+  <script src="js/config/route.js"></script>
+  <script src="js/config/ionicConfig.js"></script>
+  <!--Services-->
+  <script src="js/services/device.js"></script>
+  <script src="js/services/main.js"></script>
+  <script src="js/services/helpers.js"></script>
+  <!--Models-->
+  <script src="js/models/database.js"></script>
+  <script src="js/models/main.js"></script>
+  <!--Controllers-->
+  <script src="js/controllers/access.js"></script>
+  <script src="js/controllers/main.js"></script>
+  <script src="js/controllers/seed.js"></script>
+  <script src="js/controllers/app/new.js"></script>
+  <script src="js/controllers/app/home.js"></script>
+  <script src="js/controllers/app/profile.js"></script>
+  <script src="js/controllers/app/userProfile.js"></script>
+  <script src="js/controllers/app/careerHome.js"></script>
+  <script src="js/controllers/app/messages.js"></script>
+  <script src="js/controllers/app/chat.js"></script>
+  <script src="js/controllers/app/search.js"></script>
+  <script src="js/controllers/app/comments.js"></script>
+  <script src="js/controllers/app/likes.js"></script>
+  <script src="js/controllers/app/singlePublication.js"></script>
+  <script src="js/controllers/app/notifications.js"></script>
+  <!--Directives-->
+  <script src="js/directives/input.js"></script>
+  <!--Filters-->
+  <script src="js/filters/toInAppBrowser.js"></script>
+  <meta http-equiv="Content-Security-Policy">
+  <!--<meta http-equiv="Content-Security-Policy" content="default-src *; img-src *; style-src * 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">-->
+  <!--<meta http-equiv="Content-Security-Policy"-->
+  <!--content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">-->
+</head>
+
+<body ng-app="informer">
+<ion-nav-view></ion-nav-view>
+</body>
+</html>

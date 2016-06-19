@@ -1,0 +1,68 @@
+<ion-view title="New Publication">
+  <ion-content>
+    <form class="list" name="newPost">
+      <label class="item item-input item-floating-label">
+        <span class="input-label">Title</span>
+        <input type="text" ng-model="Publication.publication.title" placeholder="Title">
+      </label>
+      <label class="item item-input item-floating-label">
+        <span class="input-label"><i class="ion-edit"></i></span>
+        <textarea rows="{{Publication.publication.content.split('\n').length + 2}}" type="text" placeholder="Content"
+                  ng-model="Publication.publication.content"></textarea>
+      </label>
+      <label class="item item-input item-floating-label">
+        <span class="input-label"><i class="icon ion-pound placeholder-icon"></i></span>
+        <input id="search_tag" type="search" placeholder="Tags" ng-model="Publication.publication.searchTag"
+               ng-change="updateTagFilter()">
+      </label>
+      <ion-list ng-show="Publication.publication.tagFilter">
+        <ion-scroll zooming="false" direction="y"
+                    ng-style="{ 'max-height' : (device.height / 3) + 'px'}">
+          <ion-item ng-click="setTag(tag.$id)"
+                    ng-repeat="tag in tags | filter:Publication.publication.tagFilter as tagsResult">
+            {{tag.$id}}
+          </ion-item>
+        </ion-scroll>
+      </ion-list>
+      <div class="row">
+        <a class="button button-icon icon ion-android-share-alt positive"></a>
+      </div>
+      <ion-checkbox ng-model="Publication.publication.university">{{User.user.university}}</ion-checkbox>
+      <ion-checkbox ng-model="Publication.publication.career">{{User.user.career}}</ion-checkbox>
+      <li class="item item-toggle">
+        Anonymous
+        <label class="toggle toggle-balanced">
+          <input type="checkbox" ng-model="Publication.publication.anonymous">
+          <div class="track">
+            <div class="handle"></div>
+          </div>
+        </label>
+      </li>
+    </form>
+
+    <div class="row padding">
+      <button class="col col-25 button icon ion-camera button-positive" ng-click="takePic()"></button>
+      <button class="col col-35 col-offset-10 button icon ion-paper-airplane button-balanced"
+              ng-click="newPublication()"></button>
+      <button class="col col-offset-10 col-25 button icon ion-images button-positive"
+              ng-click="imagePicker()"></button>
+    </div>
+    <br>
+
+    <button ng-show="Publication.publication.images.length > 0" class="button button-icon icon ion-upload positive">
+      Images to
+      upload
+    </button>
+
+    <div collection-repeat="image in Publication.publication.images" class="col col-33">
+      <a class="button icon button-icon ion-android-delete col-center" ng-click="deleteImage($index)"></a>
+      <div style="background-image:url({{image.src}});
+                        background-repeat:no-repeat;
+                        background-size:contain;
+                        width:100%;
+                        height:0;
+                        padding-top:100%">
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

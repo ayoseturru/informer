@@ -1,0 +1,125 @@
+<ion-view hide-back-button="false" cache-view="true">
+  <ion-nav-title>
+    {{requestedUser.name || 'Wait..'}}
+  </ion-nav-title>
+  <ion-content>
+    <div class="my_spinner" ng-if="!requestedUser">
+      <br><br><br>
+      <ion-spinner icon="android"></ion-spinner>
+      <h4 class="positive">
+        We're trying to load the profile of the requested user..
+      </h4>
+    </div>
+    <div class="list card" ng-if="requestedUser">
+
+      <div class="item item-icon-left positive item-divider">
+        <h2><i class="icon ion-person positive"></i> {{requestedUser.name}} {{requestedUser.firstSurname}}
+          {{requestedUser.secondSurname}}</h2>
+      </div>
+
+      <div class="item item-image">
+        <img class="full-image" id="user_profile_image"
+             ng-src="{{requestedUser.profileImage || 'img/default_profile.png' }}">
+      </div>
+
+      <div class="item item-body">
+        <p>
+          <i class="icon ion-university positive"></i> {{requestedUser.university}}: {{requestedUser.career}}
+        </p>
+        <p>
+          <i class="icon ion-information-circled positive"></i>
+          <b ng-bind-html="requestedUser.extra.description | linky: '_blank' | toInAppBrowser">
+          </b>
+        </p>
+      </div>
+
+      <div class="item-divider">
+        &nbsp; <i class="icon ion-quote positive"></i> {{requestedUser.extra.quote}}
+      </div>
+    </div>
+
+    <div class="row padding" ng-if="requestedUser">
+      <button class="button-block button icon ion-chatbubble button-balanced" ng-click="sendMessage()"> Send a
+        message
+      </button>
+    </div>
+
+    <h1 class="center_title positive" ng-if="requestedUser">{{requestedUser.name.split(" ")[0]}}'s publications</h1>
+    <div class="my_spinner_profile" ng-if="!publications.length && !publicationsLoaded && requestedUser">
+      <br><br><br>
+      <ion-spinner icon="android"></ion-spinner>
+      <h4 class="positive">
+        We're trying to load the publications of the requested User...
+      </h4>
+      <br><br><br><br>
+    </div>
+    <div ng-if="publicationsLoaded && !publications.length && requestedUser">
+      <br><br>
+      <h3 class="positive center_title">
+        It's seems that {{requestedUser.name }} doesn't have any publications yet...
+      </h3>
+    </div>
+    <div ng-repeat="publication in publications" ng-if="requestedUser">
+      <div class="card" ng-if="!publication.anonymous">
+        <div class="item item-divider">
+          {{publication.title}}
+        </div>
+
+        <div class="item">
+          <span class="ion-ios-clock positive"></span> {{::formatDate(publication.date)}}
+        </div>
+
+        <div class="item item-body">
+          <div class="" ng-if="publication.images">
+            <div>
+              <h2>
+                &nbsp;<i class="ion-images positive"></i>
+              </h2>
+              <a class="item item-list-detail" class="images_list">
+                <ion-scroll direction="x" paging="true" ng-if="publication.images">
+                  <img
+                    ng-repeat="image in publication.images track by $index"
+                    ng-src="{{image}}"
+                    ng-click="showImages(publication.$id, $index)"
+                    class="image-list-thumb"/>
+                </ion-scroll>
+              </a>
+            </div>
+          </div>
+
+          <p ng-bind-html="publication.content | linky:'_blank' | toInAppBrowser"></p>
+
+          <p>
+            <a href="#" class="subdued" ng-click="goToLikes(publication.$id, currentUser)">Likes</a>
+            <a href="#" class="subdued"
+               ng-click="goToComments(publication.$id, currentUser)">Comments</a>
+          </p>
+        </div>
+
+        <div class="item tabs tabs-secondary tabs-icon-left">
+          <a class="tab-item" href="#" ng-click="like(publication.$id, currentUser, true)"
+             ng-show="!User.user.likes[publication.$id]">
+            <i class="icon ion-thumbsup"></i> Like
+          </a>
+          <a class="tab-item" href="#" ng-show="User.user.likes[publication.$id]"
+             ng-click="like(publication.$id, currentUser, false)">
+            <i class="icon ion-thumbsdown"></i> Dislike
+          </a>
+          <a class="tab-item" href="#" ng-click="sendComment(publication.$id, currentUser)">
+            <i class="icon ion-chatbox"></i> Comment
+          </a>
+          <a class="tab-item" href="#">
+            <i class="icon ion-share"></i> Share
+          </a>
+        </div>
+
+        <div class="item item-divider">
+    <span ng-repeat="(key, value) in publication.tags">
+    <a ng-if="key != 'false'" class="tags" href="#" ng-click="searchByTag(key)" class="positive">{{"#" + key}}</a>
+    </span>
+        </div>
+      </div>
+    </div>
+    <ion-infinite-scroll ng-if="!noMoreItemsAvailable" on-infinite="loadMore()" distance="10%"></ion-infinite-scroll>
+  </ion-content>
+</ion-view>

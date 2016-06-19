@@ -1,0 +1,124 @@
+<ion-view hide-back-button="true">
+  <ion-nav-title>
+    Informer {{university + (currentTag? ' #' + currentTag:'')}}
+  </ion-nav-title>
+  <ion-content>
+    <div ng-if="loadingIsNotVisible && !publicationsThread.length && !publicationsLoaded" icon="android"
+         class="spinner-positive my_spinner">
+      <br><br><br><br>
+      <h3 class="center_title positive">Wait a moment..</h3>
+      <ion-spinner></ion-spinner>
+    </div>
+    <div ng-if="publicationsLoaded && !publicationsThread.length && loadingIsNotVisible">
+      <br><br>
+      <h3 class="positive center_title">
+        {{publicationsLoaded? "It's seems that there is not publications yet... Be the first!": 'Wait a momment..'}}
+      </h3>
+    </div>
+    <div class="list">
+      <div ng-repeat="item in publicationsThread" class="card" ng-show="item.tags[currentTag] || !currentTag">
+        <div ng-if="!publications[item.publication]" ng-show="false">{{::loadPublication(item.publication,
+          item.user, item.anonymous)}}
+        </div>
+
+        <div class="item item-divider">
+          {{publications[item.publication].publication.title}}
+          <i style="font-size: 20px" class="ion icon-assertive assertive ion-trash-a"
+             ng-if="publications[item.publication].publication.ready && (item.user == User.user.uid)"
+             ng-click="deletePublication(item.publication)"></i>
+          <ion-spinner ng-if='!publications[item.publication].publication.title' class='spinner-positive'></ion-spinner>
+        </div>
+
+        <div class="item item-avatar">
+          <img ng-if="item.anonymous && item.user != User.user.uid" ng-src="img/anonymous.png">
+          <img ng-if="item.anonymous && item.user == User.user.uid" ui-sref="app.profile" ng-src="img/anonymous.png">
+          <img ui-sref="app.userProfile({user: item.user})"
+               ng-if="!item.anonymous && item.user != User.user.uid"
+               ng-src="{{publications[item.publication].user.profileImage || 'img/default_profile.png'}}">
+          <img ui-sref="app.profile"
+               ng-if="!item.anonymous && item.user == User.user.uid"
+               ng-src="{{User.user.profileImage || 'img/default_profile.png'}}">
+
+          <h2>{{ item.anonymous? ("Anoymous" + (item.user == User.user.uid? " (me)": "")):
+            publications[item.publication].user.name}}</h2>
+
+          <ion-spinner ng-if="!item.anonymous && !publications[item.publication].user.name"
+                       class="spinner-positive"></ion-spinner>
+
+          <p ng-if="publications[item.publication].publication.date">
+            <span class="ion-ios-clock positive"></span>
+            {{::formatDate(publications[item.publication].publication.date)}}</p>
+
+        </div>
+
+        <div class="item item-body">
+
+          <div ng-if="item.images && !publications[item.publication].publication.ready">
+            <ion-spinner class="spinner-positive"></ion-spinner>
+            <h4>Loading images. Please wait a moment...</h4>
+          </div>
+
+          <div ng-if="item.images && publications[item.publication].publication.ready">
+
+            <h2>{{publications[item.publication].publication.images.length}} <i class="ion-camera"></i></h2>
+
+            <a class="item item-list-detail" class="images_list">
+
+              <ion-scroll direction="x" paging="true">
+                <img
+                  ng-repeat="image in publications[item.publication].publication.images"
+                  ng-src="{{image.src}}"
+                  ng-click="showImages($index, item.publication)"
+                  class="image-list-thumb"/>
+              </ion-scroll>
+
+            </a>
+          </div>
+
+          <p ng-bind-html="publications[item.publication].publication.content | linky:'_blank' | toInAppBrowser">
+          </p>
+
+          <p>
+            <a href="#" class="subdued" ng-click="goToLikes(item.publication, item.user)">Likes</a>
+            <a href="#" class="subdued"
+               ng-click="goToComments(item.publication, item.user)">Comments</a>
+          </p>
+        </div>
+
+        <div class="item tabs tabs-secondary tabs-icon-left">
+          <a class="tab-item" href="#" ng-click="like(item.publication, item.user, true)"
+             ng-show="!User.user.likes[item.publication]">
+            <i class="icon ion-thumbsup"></i> Like
+          </a>
+          <a class="tab-item" href="#" ng-show="User.user.likes[item.publication]"
+             ng-click="like(item.publication, item.user, false)">
+            <i class="icon ion-thumbsdown"></i> Dislike
+          </a>
+          <a class="tab-item" href="#" ng-click="sendComment(item.publication, item.user)">
+            <i class="icon ion-chatbox"></i> Comment
+          </a>
+          <a class="tab-item" href="#">
+            <i class="icon ion-share"></i> Share
+          </a>
+        </div>
+
+        <div class="item item-divider" ng-if="!publications[item.publication].publication.tags['false']">
+          <span ng-repeat="(key, value) in publications[item.publication].publication.tags">
+          <a class="tags" href="#" ng-click="searchByTag(key)" class="positive">{{"#" + key}}</a>
+          </span>
+        </div>
+      </div>
+
+    </div>
+    <ion-infinite-scroll ng-if="!noMoreItemsAvailable" on-infinite="loadMore()" distance="5%">
+    </ion-infinite-scroll>
+  </ion-content>
+  <br><br><br>
+  <button ng-show="news.university" class="col-offset-80 button button-circle button-positive icon ion-alert"
+          ng-click="newsSeen()"></button>
+  <br>
+  <br>
+  <button ng-show="currentTag"
+          class="col-offset-80 button button-circle button-assertive icon ion-pound disable_tag"
+          ng-click="disableTag()"></button>
+</ion-view>

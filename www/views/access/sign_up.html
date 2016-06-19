@@ -1,0 +1,146 @@
+<ion-view title="Sign Up" cache-view="false">
+  <ion-content class="padding" id="sign_up">
+    <ion-slide-box active-slide="slide.show" show-pager="false" ng-init="lockSlide()">
+      <ion-slide>
+        <div class="box">
+          <div class="row">
+            <button ng-disable="signUpForm.$invalid"
+                    ng-click="signUpForm.$invalid || User.user.password != User.user.passwordConfirmation || errors.emailTaken || emailNotChecked|| next()"
+                    class="col  col-offset-75 col-25 button button-energized button-small">
+              Next
+            </button>
+          </div>
+          <h2 class="title access_title">Your informer account</h2>
+
+          <form id="sign_up_form" name="signUpForm" class="list">
+            <label class="item item-input">
+              <input type="email" name="email" placeholder="Email"
+                     ng-model="User.user.email"
+                     ng-pattern="/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/"
+                     ng-change="!User.user.email || checkEmailExists()" required>
+            </label>
+            <label class="item item-input">
+              <input name="password" type="password" placeholder="Password"
+                     ng-model="User.user.password" required ng-minlength="7">
+            </label>
+            <label class="item item-input">
+              <input name="password_confirmation" type="password" placeholder="Password confirmation"
+                     ng-model="User.user.passwordConfirmation" required>
+            </label>
+          </form>
+          <br>
+          <ul>
+            <li ng-show="errors.emailTaken">* There exist an Informer account with this email</li>
+            <li ng-show="signUpForm.email.$touched && signUpForm.email.$error.required">* Email is required</li>
+            <li ng-show="signUpForm.email.$touched && signUpForm.email.$invalid">* Email must be a valid email
+              address
+            </li>
+            <li ng-show="signUpForm.password.$touched && signUpForm.password.$error.required">* Password is required
+            </li>
+            <li ng-show="signUpForm.password.$touched && signUpForm.password.$error.minlength">* Password must be longer
+              than 7 characters
+            </li>
+            <li ng-show="signUpForm.password_confirmation.$touched && signUpForm.password_confirmation.$error.required">
+              *
+              Please, confirm your password
+            </li>
+            <li
+              ng-show="signUpForm.password_confirmation.$touched && signUpForm.password.$valid && (User.user.password != User.user.passwordConfirmation)">
+              * Password does not match
+            </li>
+          </ul>
+        </div>
+      </ion-slide>
+      <ion-slide>
+        <div class="box ">
+          <div class="row">
+            <button ng-click="previous()" class="col col-33 button button-energized button-small">
+              Previous
+            </button>
+            <button ng-disable="personalInformationForm.$invalid"
+                    ng-click="personalInformationForm.$invalid || next()"
+                    class="col col-offset-33 col-33 button button-energized button-small">
+              Last step!
+            </button>
+          </div>
+          <h2 class="access_title title">Personal information</h2>
+          <form id="personal_information_form" name="personalInformationForm" class="list">
+            <label class="item item-input">
+              <input type="text" name="name" placeholder="Name"
+                     ng-model="User.user.name" required>
+            </label>
+            <label class="item item-input">
+              <input name="firstSurname" type="text" placeholder="First Surname"
+                     ng-model="User.user.firstSurname" required>
+            </label>
+            <label class="item item-input">
+              <input name="secondSurname" type="text" placeholder="Second Surname (Optional)"
+                     ng-model="User.user.secondSurname">
+            </label>
+          </form>
+          <ul>
+            <li ng-show="personalInformationForm.name.$touched && personalInformationForm.name.$error.required">* Name
+              is required
+            </li>
+            <li
+              ng-show="personalInformationForm.firstSurname.$touched && personalInformationForm.firstSurname.$error.required">
+              * First surname is required
+            </li>
+          </ul>
+        </div>
+      </ion-slide>
+      <ion-slide>
+        <div class="box">
+          <div class="row" ng-show="slide.stateParam == 0">
+            <button ng-click="previous()"
+                    class="col col-33 button button-energized button-small">
+              Previous
+            </button>
+            <button ng-click="!User.user.university  || !User.user.career || createAccount()"
+                    class="col col-offset-33 col-33 button button-energized button-small">
+              Create account
+            </button>
+          </div>
+          <div class="row" ng-show="slide.stateParam !=0">
+            <button ng-click="!User.user.university  || !User.user.career || createFacebookUserAccount()"
+                    class="col col-offset-75 col-25 button button-energized button-small">
+              Enter!
+            </button>
+          </div>
+          <h2 class="title access_title">Your Schooling</h2>
+          <label id="user_university" class="item item-input">
+            <i class="icon ion-search placeholder-icon"></i>
+            <input ng-model="User.user.university" type="search" placeholder="Search your University">
+          </label>
+          <ion-list id="universities_list" ng-show="User.user.university">
+            <ion-scroll zooming="false" direction="y"
+                        ng-style="{ 'max-height' : (device.height / 3) + 'px'}">
+              <ion-item ng-click="setUniversity(university.$id, university.name)"
+                        id="{{university.$id}}"
+                        ng-repeat="university in universities | filter:User.user.university as universitiesResults">
+                {{university.name + " (" + university.$id + ")"}}
+              </ion-item>
+            </ion-scroll>
+          </ion-list>
+          <br>
+          <label id="user_career" class="item item-input">
+            <i class="icon ion-search placeholder-icon"></i>
+            <input ng-init="setUniversities()" ng-model="User.user.career" type="text" placeholder="Search your Career">
+          </label>
+          <ion-list id="careers_list" ng-show="User.user.career">
+            <ion-scroll zooming="false" direction="y"
+                        ng-style="{ 'max-height' : (device.height / 3) + 'px'}">
+              <ion-item ng-click="setCareer(career)"
+                        ng-repeat="career in careersFilter | filter:User.user.career as careersResults">
+                {{career}}
+              </ion-item>
+            </ion-scroll>
+          </ion-list>
+          <p ng-show="User.user.schoolingErrors">* Please, make you sure that you don't write any additional character in the
+            form and search your university again</p>
+        </div>
+      </ion-slide>
+    </ion-slide-box>
+  </ion-content>
+</ion-view>
+

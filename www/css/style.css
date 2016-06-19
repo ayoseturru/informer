@@ -1,0 +1,397 @@
+@font-face {
+  font-family: 'Pacifico';
+  font-weight: 400;
+  font-style: normal;
+  src: url('fonts/Pacifico-regular/Pacifico-regular.eot');
+  src: url('fonts/Pacifico-regular/Pacifico-regular.eot?#iefix') format('embedded-opentype'), local('Pacifico Regular'), local('Pacifico-regular'), url('fonts/Pacifico-regular/Pacifico-regular.woff2') format('woff2'), url('fonts/Pacifico-regular/Pacifico-regular.woff') format('woff'), url('fonts/Pacifico-regular/Pacifico-regular.ttf') format('truetype'), url('fonts/Pacifico-regular/Pacifico-regular.svg#Pacifico') format('svg');
+}
+@font-face {
+  font-family: 'Philosopher';
+  font-weight: 400;
+  font-style: normal;
+  src: url('fonts/Philosopher-regular/Philosopher-regular.eot');
+  src: url('fonts/Philosopher-regular/Philosopher-regular.eot?#iefix') format('embedded-opentype'), local('Philosopher'), local('Philosopher-regular'), url('fonts/Philosopher-regular/Philosopher-regular.woff2') format('woff2'), url('fonts/Philosopher-regular/Philosopher-regular.woff') format('woff'), url('fonts/Philosopher-regular/Philosopher-regular.ttf') format('truetype'), url('fonts/Philosopher-regular/Philosopher-regular.svg#Philosopher') format('svg');
+}
+body * {
+  font-family: 'Philosopher', sans-serif !important;
+}
+.back-text {
+  display: none !important;
+}
+.box {
+  border: 2px solid #5EA1E0;
+}
+.center_title {
+  text-align: center;
+}
+#app_title {
+  font-family: 'Pacifico', cursive !important;
+  text-align: center;
+  color: #FAFAFA;
+  font-weight: 400;
+}
+.access_title {
+  font-family: 'Pacifico', cursive !important;
+  text-align: center;
+  color: #FAFAFA;
+}
+#welcome,
+#sign_up {
+  background-color: #5EA1E0;
+  color: #FAFAFA !important;
+}
+#login_form label,
+#sign_up_form label,
+#personal_information_form label {
+  border-left: 0;
+  border-right: 0;
+}
+#login_form label:first-child,
+#sign_up_form label:first-child,
+#personal_information_form label:first-child {
+  border-top: 0;
+}
+#login_form label:nth-child(2),
+#sign_up_form label:nth-child(2),
+#personal_information_form label:nth-child(2) {
+  border-top: 0;
+}
+#login_form .item,
+#sign_up_form .item,
+#personal_information_form .item {
+  background-color: transparent;
+}
+#login_form input::-webkit-input-placeholder,
+#sign_up_form input::-webkit-input-placeholder,
+#personal_information_form input::-webkit-input-placeholder,
+#login_form input[type="email"],
+#sign_up_form input[type="email"],
+#personal_information_form input[type="email"],
+#login_form input[type="password"],
+#sign_up_form input[type="password"],
+#personal_information_form input[type="password"],
+#login_form input[type="text"],
+#sign_up_form input[type="text"],
+#personal_information_form input[type="text"] {
+  color: #FAFAFA;
+}
+#user_university,
+#user_career {
+  background-color: transparent;
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
+}
+#user_university .placeholder-icon,
+#user_career .placeholder-icon {
+  color: #EDEEEE;
+}
+#user_university input,
+#user_career input {
+  color: #FAFAFA;
+}
+#user_university input::-webkit-input-placeholder,
+#user_career input::-webkit-input-placeholder {
+  color: #FAFAFA;
+}
+#universities_list ion-item,
+#careers_list ion-item {
+  background-color: transparent;
+  color: white;
+  border-color: #A2A5A8;
+  border-bottom: 0;
+  width: auto;
+}
+.photo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.available-scroller {
+  height: 250px;
+}
+.gallery {
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+.divHorizontal {
+  display: inline-block;
+  width: 1000px;
+  padding-left: 10px;
+}
+.error {
+  border-color: #ef473a;
+}
+.item-profile {
+  height: 150px;
+}
+.item-profile .item-avatar > img:first-child {
+  max-width: 100px;
+  max-height: 100px;
+  margin: 0 auto;
+  display: block;
+}
+.tags {
+  text-decoration: none;
+}
+.image-list-thumb {
+  padding: 2px 2px 2px 2px;
+  height: 100px;
+  margin-right: 5px;
+  border: 1px solid #A2A5A8;
+  border-radius: 5px;
+}
+.image-modal {
+  width: 100% !important;
+  height: 100%;
+  top: 0 !important;
+  left: 0 !important;
+}
+.transparent {
+  background: rgba(0, 0, 0, 0.7);
+}
+.fullscreen-image {
+  max-width: 100%;
+  max-height: 100%;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  overflow: auto;
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+.slider {
+  width: 100%;
+  height: 100%;
+}
+.images_list {
+  background-color: #f8f8f8 !important;
+}
+.platform-android .header-item.title {
+  transition-duration: 0ms;
+}
+.platform-android .header-item.buttons {
+  transition-duration: 0ms;
+}
+.gallery {
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+.slider-pager .slider-pager-page {
+  color: #5EA1E0;
+}
+div.my_spinner {
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  height: 85px;
+  text-align: center;
+}
+div.my_spinner_profile {
+  margin: auto;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  height: 85px;
+  text-align: center;
+}
+.my_spinner svg,
+.my_spinner_profile svg {
+  width: 19% !important;
+  height: 85px !important;
+}
+.new_message_popup .popup .popup-head,
+.new_message_popup .popup .popup-body,
+.new_message_popup .popup .popup-buttons {
+  background-color: #5EA1E0;
+}
+.new_message_popup .popup .popup-title,
+.new_message_popup .popup .popup-sub-title {
+  color: #FAFAFA;
+}
+.bar-footer {
+  overflow: visible !important;
+}
+.bar-footer textarea {
+  resize: none;
+  height: 25px;
+}
+/* fixes an ios bug bear */
+button.ion-android-send {
+  padding-top: 2px;
+}
+/* add this to keep your footer buttons down
+at the bottom as the textarea resizes */
+.footer-btn-wrap {
+  position: relative;
+  height: 100%;
+  width: 50px;
+  top: 7px;
+}
+.footer-btn {
+  position: absolute !important;
+  bottom: 0;
+}
+img.profile-pic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 10px;
+}
+img.profile-pic.left {
+  left: 10px;
+}
+img.profile-pic.right {
+  right: 10px;
+}
+.ion-email {
+  float: right;
+  font-size: 32px;
+  vertical-align: middle;
+}
+.message {
+  font-size: 14px;
+}
+.message-detail {
+  white-space: nowrap;
+  font-size: 14px;
+}
+.bar.item-input-inset .item-input-wrapper input {
+  width: 100% !important;
+}
+.message-wrapper {
+  position: relative;
+}
+.message-wrapper:last-child {
+  margin-bottom: 10px;
+}
+.chat-bubble {
+  border-radius: 5px;
+  display: inline-block;
+  padding: 10px 18px;
+  position: relative;
+  margin: 10px;
+  max-width: 80%;
+}
+.chat-bubble:before {
+  content: "\00a0";
+  display: block;
+  height: 16px;
+  width: 9px;
+  position: absolute;
+  bottom: -7.5px;
+}
+.chat-bubble.left {
+  background-color: #e6e5eb;
+  float: left;
+  margin-left: 55px;
+}
+.chat-bubble.left:before {
+  background-color: #e6e5eb;
+  left: 10px;
+  -webkit-transform: rotate(70deg) skew(5deg);
+}
+.chat-bubble.right {
+  background-color: #158ffe;
+  color: #fff;
+  float: right;
+  margin-right: 55px;
+}
+.chat-bubble.right:before {
+  background-color: #158ffe;
+  right: 10px;
+  -webkit-transform: rotate(118deg) skew(-5deg);
+}
+.chat-bubble.right a.autolinker {
+  color: #fff;
+  font-weight: bold;
+}
+.user-messages-top-icon {
+  font-size: 28px;
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  top: -3px;
+  right: 5px;
+}
+.msg-header-username {
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  top: -3px;
+}
+.bold {
+  font-weight: bold;
+}
+.cf {
+  clear: both !important;
+}
+a.autolinker {
+  color: #3b88c3;
+  text-decoration: none;
+}
+/* loading */
+.loader-center {
+  height: 100%;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-direction: normal;
+  -moz-box-direction: normal;
+  -webkit-box-orient: horizontal;
+  -moz-box-orient: horizontal;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  -webkit-box-pack: center;
+  -moz-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-content: stretch;
+  -ms-flex-line-pack: stretch;
+  align-content: stretch;
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+.loader .ion-loading-c {
+  font-size: 64px;
+}
+a[target="_blank"] {
+  color: #11c1f3 !important;
+  font-weight: bold;
+  font-style: oblique;
+}
+.fixed-outside {
+  position: absolute;
+  float: right;
+  top: 50px;
+  color: white;
+  height: 120px;
+  text-align: center;
+}
+.button-circle {
+  width: 50px !important;
+  height: 50px !important;
+  border-radius: 50% !important;
+}
+#user_profile_image {
+  width: auto;
+}
+.ion-trash-a {
+  font-size: 30px !important;
+}

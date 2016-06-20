@@ -18,11 +18,12 @@ Stay what the step will be
 ```
 1. $ git clone https://bitbucket.org/ayoseturru/informer
 2. Edit /www/js/models/database.js and change "https://domain.firebaseio.com" for your Firebase Domain.
-3. Install push plugin usind the official guide (http://docs.ionic.io/docs/push-sending-push)
-4. $ npm -g install
-5. $ bower install
-6. $ ionic state reset
-7. $ ionic run android
+3. Seed the Database with the data that appears in /www/js/controllers/seed following the same structure
+4. Install push plugin usind the official guide (http://docs.ionic.io/docs/push-sending-push)
+5. $ npm -g install
+6. $ bower install
+7. $ ionic state reset
+8. $ ionic run android
 
 ```
 

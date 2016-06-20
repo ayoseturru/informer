@@ -16,11 +16,13 @@ A step by step series of examples that tell you have to get a development env ru
 Stay what the step will be
 
 ```
-1. $ git clone https://bitbucket.org/ayoseturru/fittable
-2. $ cd fittable
-3. $ bundle install
-4. $ rake db:setup
-5. $ rails s
+1. $ git clone https://bitbucket.org/ayoseturru/informer
+2. Edit /www/js/models/database.js and change "https://domain.firebaseio.com" for your Firebase Domain.
+3. Install push plugin usind the official guide (http://docs.ionic.io/docs/push-sending-push)
+4. $ npm -g install
+5. $ bower install
+6. $ ionic state reset
+7. $ ionic run android
 
 ```
 

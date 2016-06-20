@@ -24,8 +24,6 @@ Stay what the step will be
 
 ```
 
-```
-
 ## Built With
 
 * Ionic
